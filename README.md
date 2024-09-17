@@ -3,7 +3,7 @@ The pipeline is intended to reconstruct and quantify 3D viral vector distributio
 <br><br>
 The pipeline accompanies "Quantitative 3D reconstruction of viral vector distribution in rodent and ovine brain following local delivery" by Poceviciute et al. (2024).
 <br><br>
-Developers: Roberta Poceviciute with contributions from Kenneth Mitchel, Bionaut Labs, Inc.
+Developers: Roberta Poceviciute with contributions from Kenneth Mitchell, Bionaut Labs, Inc.
 
 ## python module versions
         python 3.9.12
