@@ -301,11 +301,11 @@ Sum up section counts to estimate total virus+ cell count in the brain
 Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final/ OR
               ../Rxxxxx/IlastikSegmentation/CHANNEL-final-centroid/
 #### Estimate virus+ cell cloud volume and profile virus+ cell distribution from boundary of drug delivery
-Extract data from Nutil output
-Draw alphashape around needle/capsule/hole pixels to obtain boundary of drug delivery (optimize alpha param as needed)
-Draw alphashape around point cloud to estimate cloud volume (optimize alpha param as needed)
-Use Trimesh PointCloud to profile virus+ cell distance from drug delivery boundary as ECDF
-Input: ../Rxxxxx/Nutil/ with subfolders CHANNEL OR CHANNEL-centroid and Needle OR Capsule OR Hole
+Extract data from Nutil output <br>
+Draw alphashape around needle/capsule/hole pixels to obtain boundary of drug delivery (optimize alpha param as needed) <br>
+Draw alphashape around point cloud to estimate cloud volume (optimize alpha param as needed) <br>
+Use Trimesh PointCloud to profile virus+ cell distance from drug delivery boundary as ECDF <br>
+Input: ../Rxxxxx/Nutil/ with subfolders CHANNEL OR CHANNEL-centroid and Needle OR Capsule OR Hole <br>
 
 
 ```python
@@ -338,9 +338,9 @@ pipeline.plot_section_count_validation(section_counts_validation)
 ```
 
 ## Optionally, Compute Precision Metrics
-    GroundTruth Masks: ../Rxxxxx/ROIs/GroundTruth/
-    Model: ../Rxxxxx/ROIs/MODEL/
-    Model examples: CellProfiler, Ilastik1ch, Ilastik3ch
+GroundTruth Masks: ../Rxxxxx/ROIs/GroundTruth/
+Model: ../Rxxxxx/ROIs/MODEL/
+Model examples: CellProfiler, Ilastik1ch, Ilastik3ch
 
 
 ```python
