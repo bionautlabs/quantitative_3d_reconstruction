@@ -297,8 +297,7 @@ To save on computation, use centroid masks in png format
 Smooth raw counts across sections using 1D Gaussian filter <br>
 Then use linear inerpolation between each pair of consecutive analyzed sections to predict virus+ cell counts in missing sections in between <br>
 Sum up section counts to estimate total virus+ cell count in the brain <br>
-Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final/ OR <br>
-              ../Rxxxxx/IlastikSegmentation/CHANNEL-final-centroid/ <br>
+Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final/ OR <br> ../Rxxxxx/IlastikSegmentation/CHANNEL-final-centroid/ <br>
 #### Estimate virus+ cell cloud volume and profile virus+ cell distribution from boundary of drug delivery
 Extract data from Nutil output <br>
 Draw alphashape around needle/capsule/hole pixels to obtain boundary of drug delivery (optimize alpha param as needed) <br>
