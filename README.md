@@ -63,7 +63,7 @@ ilastik models
     - GFP-seed <br>
             select GFP greyscale images for manual "clustering" (tif) <br>
             at the minimum, select one seed section in the center of the virus+ cell cloud <br>
-            if the cloud ends before sections are exhausted, also select a section where the cloud first disappears
+            if the cloud ends before sections are exhausted, also select a section where the cloud first disappears <br>
             to manually "cluster", color the area outside of true positive cloud in black (pixel value = 0) <br>
     - GFP-DBSCAN <br>
             2D and 3D plots of DBSCAN clustering results (png) <br>
