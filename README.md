@@ -40,7 +40,7 @@ ilastik models
 - h5 <br>
     - DAPI <br>
             single-channel DAPI images in h5 format (tissue detection)
-    - GFP (same for mCherry) <br>
+    - GFP <br>
             three-channel (BF-GFP-DAPI) images in h5 format (virus+ cell detection)
     - mCherry <br>
             three-channel (BF-mCherry-DAPI) images in h5 format (virus+ cell detection)
@@ -155,10 +155,10 @@ Identify at least 7 top features <br>
 Train the model using the suggested features only <br>
 #### DAPI (tissue) specific guidelines
 Files: 1-channel DAPI h5 files <br>
-Labels: Tissue & Background (BG) <br>
+Labels: (1) Tissue & (2) Background (BG) <br>
 #### GFP/mCherry (virus+ cell) specific guidelines
 Files: 3-channel BF-GFP/mCherry-DAPI h5 files <br>
-Labels: GFP/mCherry, Background (BG) & Damage (DMG) <br>
+Labels: (1) GFP/mCherry, (2) Background (BG) & (3) Damage (DMG) <br>
 #### Batch processing guidelines
 Batch processing output settings: Format=SimpleSegmentation Filetype=TIF <br>
 Output files will be saved in the folder with input h5 files <br>
