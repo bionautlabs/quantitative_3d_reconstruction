@@ -82,13 +82,13 @@ ilastik models
             QuickNII output
 - Nutil <br>
     - Hole/Needle/Capsule <br>
-            Nutil output for final needle/capsule hole masks
+            Nutil output for final needle/capsule/hole masks
     - GFP-centroid <br>
             Nutil output for final GFP centroid masks
     - mCherry-centroid <br>
             subfolders are analogous to GFP
 - ROIs <br>
-        For calculation of performance metrics
+For calculation of performance metrics
     - GroundTruth <br>
             black-and-white masks labeled by expert annotator
     - MODEL <br>
