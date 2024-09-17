@@ -27,9 +27,9 @@ Developers: Roberta Poceviciute with contributions from Kenneth Mitchel, Bionaut
 ## Folder organization
 Organize pipeline script, data, etc. into folders as follows.
 #### Pipeline
-                pipeline script, jupyter notebooks, etc.
+pipeline script, jupyter notebooks, etc.
 #### Ilastik
-                ilastik models
+ilastik models
 #### Rxxxxx (separate folder for each animal)
 - Rxxxxx-metadata.csv
         at the minimum, columns Rat, Section, ToFlip
