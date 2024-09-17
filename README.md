@@ -290,7 +290,7 @@ See Nutil documentation
 #### Needle/Capsule hole masks
 Use masks as is in png format
 #### Drug masks
-To save on comptation, use centroid masks in png format
+To save on computation, use centroid masks in png format
 
 ## Step 11: Extract Quantitative Information
 ##### Predict virus+ cell counts in missing sections and total virus+ cell counts in the brain
@@ -336,7 +336,7 @@ section_counts_validation = pipeline.validate_section_counts(rat,channel='mCherr
 pipeline.plot_section_count_validation(section_counts_validation)
 ```
 
-## Optionally, Compute Precision Metrics
+## Optionally, Compute Performance Metrics
 GroundTruth Masks: ../Rxxxxx/ROIs/GroundTruth/ <br>
 Model: ../Rxxxxx/ROIs/MODEL/ <br>
 Model examples: CellProfiler, Ilastik1ch, Ilastik3ch <br>
