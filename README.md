@@ -104,17 +104,17 @@ ilastik models
 
 ## Step 2: Convert files
 #### Reduce RGB images to greyscale & flip images that need flipping
-    Input folder: ./Rxxxxx/tif
-    Output folder: modify in place
+Input folder: ./Rxxxxx/tif
+Output folder: modify in place
 
 #### Convert images from tif to jpeg format for QuickNII
-    Change file naming order to Rxxxxx-chz-syyy.jpg
-    Input folder: ../Rxxxx/tif/
-    Output folder: ../Rxxxx/QuickNII/jpeg/
+Change file naming order to Rxxxxx-chz-syyy.jpg
+Input folder: ../Rxxxx/tif/
+Output folder: ../Rxxxx/QuickNII/jpeg/
 
 #### Convert images from tif to h5 for Ilastik
-    For DAPI staining of tissue, keep single channel DAPI images
-    For GFP/mCherry visualization of virus+ cells, merge three channel images, e.g. BF-GFP-DAPI
+For DAPI staining of tissue, keep single channel DAPI images
+For GFP/mCherry visualization of virus+ cells, merge three channel images, e.g. BF-GFP-DAPI
 
 
 ```python
@@ -146,46 +146,46 @@ pipeline.merge_h5_all_sections(df_meta,main_channel='mCherry',channels_to_merge=
 
 ## Step 3: Ilastik Segmentation
 #### Training guidelines:
-    Use h5 format for training and batch processing.
-    Select ~10% of the data representing a wide range of signal and background/signal "phenotypes".
-    At first, select all features.
-    In training, first label a few representative objects and click on "Suggest Features".
-    Identify at least 7 top features.
-    Train the model using the suggested features only.
+Use h5 format for training and batch processing.
+Select ~10% of the data representing a wide range of signal and background/signal "phenotypes".
+At first, select all features.
+In training, first label a few representative objects and click on "Suggest Features".
+Identify at least 7 top features.
+Train the model using the suggested features only.
 #### DAPI (tissue) specific guidelines
-    Files: 1-channel DAPI h5 files
-    Labels: Tissue & Background (BG)
+Files: 1-channel DAPI h5 files
+Labels: Tissue & Background (BG)
 #### GFP/mCherry (virus+ cell) specific guidelines
-    Files: 3-channel BF-GFP/mCherry-DAPI h5 files
-    Labels: GFP/mCherry, Background (BG) & Damage (DMG)
+Files: 3-channel BF-GFP/mCherry-DAPI h5 files
+Labels: GFP/mCherry, Background (BG) & Damage (DMG)
 #### Batch processing guidelines
-    Batch processing output settings: Format=SimpleSegmentation File type=TIF
-    Output files will be saved in the folder with input h5 files.
-    Move them to ../IlastikSegmentation/CHANNEL/
+Batch processing output settings: Format=SimpleSegmentation File type=TIF
+Output files will be saved in the folder with input h5 files.
+Move them to ../IlastikSegmentation/CHANNEL/
 
 ## Step 4: Ilastik Output Processing
 #### General guidelines
-    Remove redundant phrases from output file names
-    Remove small objects and close small holes (adjust thresholds as needed)
-    Rescale so that objects are now 255 (not 1)
-    Input folder: ..Rxxxxx//IlasktikSegmentation/CHANNEL/
-    Output folder ..Rxxxxx//CHANNEL-processed/
+Remove redundant phrases from output file names
+Remove small objects and close small holes (adjust thresholds as needed)
+Rescale so that objects are now 255 (not 1)
+Input folder: ..Rxxxxx//IlasktikSegmentation/CHANNEL/
+Output folder ..Rxxxxx//CHANNEL-processed/
 #### DAPI (tissue) mask processing
-    Holes and small objects are relatively large, set thresholds accordingly.
-    To detect capsule hole, an alphashape will be drawn around tissue mask, and the mask will be inverted.
-    Manually marked image will be used to identify capsule hole.
+Holes and small objects are relatively large, set thresholds accordingly.
+To detect capsule hole, an alphashape will be drawn around tissue mask, and the mask will be inverted.
+Manually marked image will be used to identify capsule hole.
 #### GFP/mCherry (drug) mask processing
-    Holes and small objects are relatively small, set thresholds accordingly
-    Optionally, overlay processed tissue masks to remove objects outside of the tissue
+Holes and small objects are relatively small, set thresholds accordingly
+Optionally, overlay processed tissue masks to remove objects outside of the tissue
 #### Needle/Capsule hole detection
-    Find images where needle/capsule holes are visible (starting images must be greyscale)
-    For needle condition: paint over the entire track in blue & save in DrawNeedleTrack subdir.
-    Use function find_needle_track.
-    For capsule condition: make a small mark on the capsule hole(s) in blue & save in MarkCapsuleHole subdir.
-    Use function find_capsule_hole.
-    Input folder (needle): ../Rxxxxx/IlastikSegmentation/DrawNeedleTrack
-    Input folder (capsule):../Rxxxxx/IlastikSegmentation/MarkCapsuleHole & ../Rxxxxx/IlastikSegmentation/DAPI-processed
-    Output folder: ../Rxxxxx/IlastikSegmentation/Hole
+Find images where needle/capsule holes are visible (starting images must be greyscale)
+For needle condition: paint over the entire track in blue & save in DrawNeedleTrack subdir.
+Use function find_needle_track.
+For capsule condition: make a small mark on the capsule hole(s) in blue & save in MarkCapsuleHole subdir.
+Use function find_capsule_hole.
+Input folder (needle): ../Rxxxxx/IlastikSegmentation/DrawNeedleTrack
+Input folder (capsule):../Rxxxxx/IlastikSegmentation/MarkCapsuleHole & ../Rxxxxx/IlastikSegmentation/DAPI-processed
+Output folder: ../Rxxxxx/IlastikSegmentation/Hole
 
 
 ```python
@@ -196,11 +196,11 @@ pipeline.process_drug_masks(rat,channel='mCherry',remove_from_name='_Simple Segm
 ```
 
 ## Step 5: Calculate Object Properties
-    Calculate object properties for processed drug masks and normalize them
-    Key properties: X and Y spatial coordinates & spatial moment (along with metadata)
-    Save results as csv file in master rat directory
-    Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-processed/
-    Output dir: ../Rxxxxx/Rxxxxx-CHANNEL-ObjectProps.csv
+Calculate object properties for processed drug masks and normalize them
+Key properties: X and Y spatial coordinates & spatial moment (along with metadata)
+Save results as csv file in master rat directory
+Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-processed/
+Output dir: ../Rxxxxx/Rxxxxx-CHANNEL-ObjectProps.csv
 
 
 ```python
@@ -210,22 +210,22 @@ pipeline.get_object_props_all_sections(rat,channel='mCherry')
 
 ## Step 6: Process Seed Sections for DBSCAN
 #### Identify seed sections
-    Seed sections will serve as starting points for object clustering.
-    At the minimum, select a single seed section at the center of the virus+ cell cloud.
-    The remaining sections will then be clustered starting at the center and towards the tails of the cloud.
-    If necessary, additional sections can be selected.
-    If virus+ cell cloud ends before the sections are exhausted, also select the first section where virus+ cell cloud is no longer visble.
+Seed sections will serve as starting points for object clustering.
+At the minimum, select a single seed section at the center of the virus+ cell cloud.
+The remaining sections will then be clustered starting at the center and towards the tails of the cloud.
+If necessary, additional sections can be selected.
+If virus+ cell cloud ends before the sections are exhausted, also select the first section where virus+ cell cloud is no longer visble.
 #### Manually "cluster" seed sections
-    To manually "cluster" seed sections, open greyscale images in FIJI.
-    Black out areas outside of the true positive cloud (i.e. pixel value = 0).
-    Fully black out the first image where virus+ cell cloud is no longer visible.
-    Save manually "clustered" images in '../Rxxxxx/IlastikSegmentation/CHANNEL-seed/ folder.
+To manually "cluster" seed sections, open greyscale images in FIJI.
+Black out areas outside of the true positive cloud (i.e. pixel value = 0).
+Fully black out the first image where virus+ cell cloud is no longer visible.
+Save manually "clustered" images in '../Rxxxxx/IlastikSegmentation/CHANNEL-seed/ folder.
 #### Combine processed drug masks and manually "clustered" seed sections
-    In processed drug masks, remove objects that lie outside of the virus+ cell cloud, i.e. in the blaced out regions.
-    Save the final masks and update csv file with object props with TruePositive object assignment.
-    Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-seed/
-    Output folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final/
-    File to modify in place: ../Rxxxxx/Rxxxxx-CHANNEL-ObjectProps.csv
+In processed drug masks, remove objects that lie outside of the virus+ cell cloud, i.e. in the blaced out regions.
+Save the final masks and update csv file with object props with TruePositive object assignment.
+Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-seed/
+Output folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final/
+File to modify in place: ../Rxxxxx/Rxxxxx-CHANNEL-ObjectProps.csv
 
 
 ```python
@@ -235,14 +235,14 @@ pipeline.process_seed_masks(rat,channel='mCherry')
 
 ## Step 7: Cluster Objects with DBSCAN
 #### Cluster objects iteratively
-    Specify rat, channel, center seed section ID
-    Optimize clustering parameters as needed
-    Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-seed/ (seed sections only)
-    File to modify in place: ../Rxxxxx/Rxxxxx-CHANNEL-ObjectProps.csv
+Specify rat, channel, center seed section ID
+Optimize clustering parameters as needed
+Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-seed/ (seed sections only)
+File to modify in place: ../Rxxxxx/Rxxxxx-CHANNEL-ObjectProps.csv
 #### Optionally, visualize clustering results
-    Input file: ../Rxxxxx/Rxxxxx-CHANNEL-ObjectProps.csv
-    Output folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-DBSCAN/VERSION/
-    Example version: 'i3D', i.e. iterative 3D DBSCAN
+Input file: ../Rxxxxx/Rxxxxx-CHANNEL-ObjectProps.csv
+Output folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-DBSCAN/VERSION/
+Example version: 'i3D', i.e. iterative 3D DBSCAN
 
 
 ```python
@@ -264,13 +264,13 @@ pipeline.plot_spatial_features_all_sections(rat,channel='mCherry',
 
 ## Step 8: Remove Noise
 #### Remove false positive objects identified during clustering
-    Input file: ../Rxxxxx/Rxxxxx-CHANNEL-ObjectProps.csv
-    Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-processed/
-    Output folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final/
+Input file: ../Rxxxxx/Rxxxxx-CHANNEL-ObjectProps.csv
+Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-processed/
+Output folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final/
 #### Optionally, reduct true positive object masks to centroid pixels
-    Reducing objects to centroid pixels speeds up and simplifies Nutil step
-    Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final/
-    Output folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final-centroid/
+Reducing objects to centroid pixels speeds up and simplifies Nutil step
+Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final/
+Output folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final-centroid/
 
 
 ```python
@@ -284,28 +284,28 @@ pipeline.generate_centroid_masks(rat,channel='mCherry')
 ```
 
 ## Step 9: Align Sections to Brain Atlas in QuickNII
-    See QuickNII documentation
+See QuickNII documentation
 
 ## Step 10: Apply Alignment to Final Masks
-    See Nutil documentation
+See Nutil documentation
 #### Needle/Capsule hole masks
-    Use masks as is in png format
+Use masks as is in png format
 #### Drug masks
-    To save on comptation, use centroid masks in png format
+To save on comptation, use centroid masks in png format
 
 ## Step 11: Extract Quantitative Information
 ##### Predict virus+ cell counts in missing sections and total virus+ cell counts in the brain
-    Smooth raw counts across sections using 1D Gaussian filter
-    Then use linear inerpolation between each pair of consecutive analyzed sections to predict virus+ cell counts in missing sections in between
-    Sum up section counts to estimate total virus+ cell count in the brain
-    Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final/ OR
-                  ../Rxxxxx/IlastikSegmentation/CHANNEL-final-centroid/
+Smooth raw counts across sections using 1D Gaussian filter
+Then use linear inerpolation between each pair of consecutive analyzed sections to predict virus+ cell counts in missing sections in between
+Sum up section counts to estimate total virus+ cell count in the brain
+Input folder: ../Rxxxxx/IlastikSegmentation/CHANNEL-final/ OR
+              ../Rxxxxx/IlastikSegmentation/CHANNEL-final-centroid/
 #### Estimate virus+ cell cloud volume and profile virus+ cell distribution from boundary of drug delivery
-    Extract data from Nutil output
-    Draw alphashape around needle/capsule/hole pixels to obtain boundary of drug delivery (optimize alpha param as needed)
-    Draw alphashape around point cloud to estimate cloud volume (optimize alpha param as needed)
-    Use Trimesh PointCloud to profile virus+ cell distance from drug delivery boundary as ECDF
-    Input: ../Rxxxxx/Nutil/ with subfolders CHANNEL OR CHANNEL-centroid and Needle OR Capsule OR Hole
+Extract data from Nutil output
+Draw alphashape around needle/capsule/hole pixels to obtain boundary of drug delivery (optimize alpha param as needed)
+Draw alphashape around point cloud to estimate cloud volume (optimize alpha param as needed)
+Use Trimesh PointCloud to profile virus+ cell distance from drug delivery boundary as ECDF
+Input: ../Rxxxxx/Nutil/ with subfolders CHANNEL OR CHANNEL-centroid and Needle OR Capsule OR Hole
 
 
 ```python
